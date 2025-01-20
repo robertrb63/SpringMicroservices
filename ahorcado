@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+
+        String palabraSecreta = "inteligencia";
+        int intentosMaximos = 10;
+        int intentos = 0;
+        boolean palabraAdivinada = false;
+
+        // Arreglos
+        char[] letraAdivinada = new char[palabraSecreta.length()];
+        // es un bucle que va a imprimir guines por cada palabra
+        for (int i =  0; i<letraAdivinada.length; i++){
+            letraAdivinada[i] = '_';
+            
+        }
+        //bucle while CONDICIONAL
+        while (!palabraAdivinada && intentos < intentosMaximos) {
+            System.out.println("Palabra a adivinar "+ String.valueOf(letraAdivinada)+" ("+palabraSecreta.length()+" letras)");
+
+            System.out.println("Por favor introduce una letra");
+
+            //metodo para cambiar letra mayuscula por minuscula
+            char letra = Character.toLowerCase(scanner.next().charAt(0));
+
+            boolean letraCorrecta = false;
+
+            //Por cada letra acertada se cambia el guion por la letra
+            for (int i = 0; i < palabraSecreta.length(); i++) {
+                if(palabraSecreta.charAt(i) == letra){
+                    letraAdivinada[i]=letra;
+                    letraCorrecta = true;
+                }
+            }
+
+            if(!letraCorrecta){
+                intentos++;
+                System.out.println("Incorrecto.. Te quedan "+(intentosMaximos-intentos));
+            }
+
+            if(String.valueOf(letraAdivinada).equals(palabraSecreta)){
+                palabraAdivinada= true;
+                System.out.println("Felicidades, has adivinado la palabra secreta: " + palabraSecreta);
+            }
+        }
+        if(!palabraAdivinada){
+            System.out.println("Que pena has pedido el juego ..." + "GAME OVER");
+        }
+        scanner.close();
+
+    }
+}
